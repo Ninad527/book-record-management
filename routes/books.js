@@ -54,12 +54,20 @@ router.post("/", (req, res)=> {
     const{id, name, author, genre, price, publisher} = req.body;
     const book = books.find((each) => each.id === id);
 
+    if(!id && !name && !author && !genre && !price && !publisher){
+        return res.status(404).json({
+            success: false,
+            message: "No data Provided"
+        });
+    }
+    
     if(book){
         return res.status(404).json({
             success: false,
             message: "Book Exist with this ID"
         });
     }
+
     books.push({
         id,
         name,
@@ -164,6 +172,37 @@ router.get("/issued/by-user", (req, res)=> {
     });
 });
 
+/**
+ * Route: /users/:id
+ * Method: GET 
+ * Description: Get all issued books with fine 
+ * Access: Public
+ * Parameters: id
+ */
+
+// router.get("/isuuedbooks-withfine/:id", (req, res) =>{
+//     const usersWithIssuedBook = users.filter((each) =>{
+//         if(each.issuedBook) return each;
+//     });
+//     const issuedBooks = [];
+//     usersWithIssuedBook.forEach((each)=> {
+//         const book = books.find((book)=> book.id === each.issuedBook);
+
+
+        
+//         fine : returnDate < currentDate ? (subscriptionExpired ? 200 : 100) : 0,
+//         issuedBooks.push(book);
+//     });
+//     if(issuedBooks.length === 0)
+//      return res.status(404).json({
+//         success: false,
+//         message: "No books issued yet"     
+//     });
+//     return res.status(200).json({
+//         success: true,
+//         data: issuedBooks
+//     });
+// });
 
 //Default Export
 module.exports = router;
