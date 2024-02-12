@@ -1,8 +1,11 @@
 const express = require("express");
 // const {users} = require("./data/users.json"); Not requie over here as we have mentioned it in users.js and books.js files
 
+const dotenv = require("dotenv");
 const usersRouter = require("./routes/users")
 const booksRouter = require("./routes/books")
+
+dotenv.config();
 
 const PORT = 8081;
 
